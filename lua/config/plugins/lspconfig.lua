@@ -1,31 +1,59 @@
 local servers = { "tsserver", "rust_analyzer" }
+local prettier = { { "prettierd", "prettier" } } -- perfer prettier daemon over normal prettier
 
 return {
 	{
-		"williamboman/mason.nvim",
-		cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate" },
+		"stevearc/conform.nvim",
+		event = "BufWritePre",
 		opts = {
-			ui = {
-				icons = {
-					package_pending = " ",
-					package_installed = " ",
-					package_uninstalled = " ",
-				},
-			},
-		}
-	},
+			formatters_by_ft = {
+				lua = { "stylua" },
 
-	{
-		"williamboman/mason-lspconfig.nvim",
-		dependencies = { "williamboman/mason.nvim" },
-		config = {
-			ensure_installed = servers,
+				javascript = prettier,
+				javascriptreact = prettier,
+				typescript = prettier,
+				typescriptreact = prettier,
+				html = prettier,
+				scss = prettier,
+				json = prettier,
+				css = prettier,
+
+				rust = { "rustfmt" }
+			}
+		},
+		format_on_save = {
+			-- These options will be passed to conform.format()
+			timeout_ms = 500,
+			lsp_fallback = true,
 		},
 	},
-
 	{
 		"neovim/nvim-lspconfig",
-		dependencies = { "williamboman/mason-lspconfig.nvim", "hrsh7th/cmp-nvim-lsp" },
+		dependencies = {
+			{
+				"williamboman/mason-lspconfig.nvim",
+				dependencies = {
+					{
+						"williamboman/mason.nvim",
+						cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate" },
+						opts = {
+							ui = {
+								icons = {
+									package_pending = " ",
+									package_installed = " ",
+									package_uninstalled = " ",
+								},
+							},
+						},
+					},
+				},
+				event = { "BufReadPost", "BufNewFile" },
+				config = {
+					ensure_installed = servers,
+				},
+			},
+			"hrsh7th/cmp-nvim-lsp"
+		},
 		event = { "BufReadPost", "BufNewFile" },
 		cmd = { "LspInfo" },
 		config = function()
@@ -71,5 +99,14 @@ return {
 				}
 			end
 		end
-	}
+	},
+
+	{
+		"stevearc/conform.nvim",
+		opts = {
+			formatters_by_ft = {
+				lua = { "stylua" },
+			},
+		},
+	},
 }

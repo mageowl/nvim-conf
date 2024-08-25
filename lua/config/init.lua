@@ -1,3 +1,9 @@
+-- 5.2 polyfill
+if not table.unpack then
+	---@diagnostic disable-next-line: deprecated
+	table.unpack = unpack
+end
+
 -- Vim globals
 require("config.options")
 
@@ -5,10 +11,16 @@ require("config.options")
 require("config.lazy")
 
 -- Use catppuccin as colorscheme
-vim.cmd.colorscheme("catppuccin")
+require("config.colorschemes")("catppuccin-mocha")
 
 -- Keyboard shortcuts
 require("config.keymap")
 
 -- Auto commands
-require("config.autocommands")
+require("config.auto_commands")
+
+-- Editor commands
+require("config.user_commands")
+
+-- Custom highlighting
+require("config.highlights")

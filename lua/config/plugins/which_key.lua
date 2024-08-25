@@ -3,13 +3,17 @@ return {
 	dependencies = { "echasnovski/mini.icons" },
 	config = function()
 		local wk = require("which-key")
-		wk.add({
-			{"<leader>f", group = "search"}
+		wk.setup({
+			preset = "modern",
+			delay = 200,
+			icons = {
+				mappings = false,
+			},
 		})
 
-		return {
-			preset = "modern",
-			delay = 200
-		}
-	end
+		wk.add({
+			{ "<leader>f", group = "search" },
+			{ "<leader>l", group = "lsp" },
+		})
+	end,
 }

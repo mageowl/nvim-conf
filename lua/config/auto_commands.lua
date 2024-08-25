@@ -5,3 +5,9 @@ cmd("User", {
 	pattern = "TelescopePreviewerLoaded",
 	command = "setlocal number",
 })
+
+cmd("BufWritePre", {
+	callback = function ()
+		require("conform").format()
+	end
+})

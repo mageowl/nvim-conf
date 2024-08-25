@@ -13,3 +13,22 @@ vim.o.cursorline = true
 vim.o.expandtab = false
 vim.o.tabstop = 4 -- display size
 vim.o.shiftwidth = 4 -- length using > and < in visual mode
+
+-- Hide tildes at end of file
+vim.opt.fillchars = { eob = " " }
+
+-- Use undo tree instead of swap files
+vim.o.swapfile = false
+vim.o.backup = false
+vim.o.undodir = os.getenv("HOME") .. "/.nvim/undodir"
+vim.o.undofile = true
+
+-- Keep 8 lines visible on both sides at all times
+vim.o.scrolloff = 8
+
+-- Disable mouse
+vim.o.mouse = ""
+
+-- Hide '-- INSERT --' because lualine shows it
+vim.o.showmode = false
+vim.o.showcmd = false
