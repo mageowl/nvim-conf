@@ -31,6 +31,7 @@ return {
 				return layout
 			end
 
+			local actions = require("telescope.actions")
 			telescope.setup({
 				defaults = {
 					prompt_prefix = "   ",
@@ -43,8 +44,11 @@ return {
 						i = {
 							-- close telescope on first escape press, instead of exiting insert mode
 							["<Esc>"] = "close",
+							-- no multiselect
 							["<Tab>"] = "move_selection_next",
 							["<S-Tab>"] = "move_selection_previous",
+							-- delete buffers
+							["<c-d>"] = actions.delete_buffer + actions.move_to_top,
 						},
 					},
 

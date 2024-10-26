@@ -14,4 +14,6 @@ return {
 			{ "<leader>u", "<cmd>UndotreeToggle<CR>", desc = "Toggle undo tree" },
 		},
 	},
+	"mageowl/vim-bean-script",
+	"CrystalAlpha358/vim-mcfunction",
 }

@@ -7,7 +7,7 @@ cmd("User", {
 })
 
 cmd("BufWritePre", {
-	callback = function ()
+	callback = function()
 		require("conform").format()
-	end
+	end,
 })

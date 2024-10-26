@@ -7,6 +7,9 @@ return {
 			-- "size",
 			-- "mtime",
 		},
+		keymaps = {
+			["<Backspace>"] = "actions.parent",
+		},
 	},
 	lazy = false,
 	cmd = { "Ex" },

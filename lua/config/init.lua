@@ -11,7 +11,7 @@ require("config.options")
 require("config.lazy")
 
 -- Use catppuccin as colorscheme
-require("config.colorschemes")("catppuccin-mocha")
+require("config.color")("catppuccin-mocha")
 
 -- Keyboard shortcuts
 require("config.keymap")

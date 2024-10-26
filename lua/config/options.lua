@@ -1,6 +1,8 @@
 vim.g.mapleader = " "
 
 -- Neovide
+vim.g.neovide_padding_left = 20
+vim.g.neovide_padding_right = 20
 vim.g.neovide_padding_top = 20
 vim.g.neovide_padding_bottom = 20
 
@@ -12,7 +14,7 @@ vim.o.cursorline = true
 -- Tab size
 vim.o.expandtab = false
 vim.o.tabstop = 4 -- display size
-vim.o.shiftwidth = 4 -- length using > and < in visual mode
+vim.o.shiftwidth = 4 -- length using > and <
 
 -- Hide tildes at end of file
 vim.opt.fillchars = { eob = " " }
@@ -29,6 +31,7 @@ vim.o.scrolloff = 8
 -- Disable mouse
 vim.o.mouse = ""
 
--- Hide '-- INSERT --' because lualine shows it
+-- Hide text below lualine
 vim.o.showmode = false
 vim.o.showcmd = false
+vim.o.ruler = false

@@ -1,3 +1,8 @@
+local function project_dir()
+	local cwd = vim.fn.getcwd()
+	return vim.fn.fnamemodify(cwd, ":h:t") .. "/" .. vim.fn.fnamemodify(cwd, ":t")
+end
+
 return {
 	"nvim-lualine/lualine.nvim",
 	dependencies = {
@@ -35,11 +40,19 @@ return {
 
 			sections = {
 				lualine_a = { { "mode", separator = { left = "" }, padding = { right = 1 } } },
-				lualine_b = { "filename", "branch" },
+				lualine_b = {
+					project_dir,
+					{ "branch", icon = "" },
+				},
 				lualine_c = {
 					{
 						"harpoon2",
 						no_harpoon = "",
+						indicators = { "1", "2", "3", "4", "5", "6", "7", "8", "9" },
+						active_indicators = { "1", "2", "3", "4", "5", "6", "7", "8", "9" },
+						color_active = { fg = colors.teal, gui = "bold" },
+						color = { fg = colors.subtext0 },
+						icon = { "󰀱", color = { fg = colors.text } },
 					},
 				},
 

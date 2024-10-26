@@ -5,6 +5,8 @@ local highlights = {
 
 	Type = { italic = true, fg = colors.yellow },
 	Macro = { link = "Function" },
+	Error = {},
+
 	-- builtin functions in rust
 	["@lsp.typemod.function.defaultLibrary"] = { link = "@function" },
 	["@lsp.typemod.method.defaultLibrary"] = { link = "@function" },
@@ -28,6 +30,7 @@ for name, hl in pairs(highlights) do
 	vim.api.nvim_set_hl(0, name, hl)
 end
 
+-- Completion menu highlights
 local completion_menu_kinds = {
 	"Enum",
 	"File",
@@ -55,10 +58,11 @@ local completion_menu_kinds = {
 	"Reference",
 	"EnumMember",
 	"Constructor",
+	"TypeParameter",
 }
 
 for _, kind in ipairs(completion_menu_kinds) do
 	local hl = "CmpItemKind" .. kind
 	local current = vim.api.nvim_get_hl(0, { name = hl })
-	vim.api.nvim_set_hl(0, hl, vim.tbl_extend("force", current, { reverse = true }))
+	vim.api.nvim_set_hl(0, hl, vim.tbl_extend("force", current, { reverse = true, bold = true }))
 end

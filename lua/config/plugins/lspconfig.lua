@@ -1,5 +1,6 @@
-local servers = { "tsserver", "rust_analyzer" }
-local prettier = { { "prettierd", "prettier" } } -- perfer prettier daemon over normal prettier
+local servers = { "ts_ls", "rust_analyzer", "emmet_language_server", "gdscript" }
+local ensure_installed = { "ts_ls", "rust_analyzer", "emmet_language_server" }
+local prettier = { "prettierd", "prettier" } -- perfer prettier daemon over normal prettier
 
 return {
 	{
@@ -18,13 +19,14 @@ return {
 				json = prettier,
 				css = prettier,
 
-				rust = { "rustfmt" }
-			}
+				rust = { "rustfmt" },
+			},
 		},
 		format_on_save = {
 			-- These options will be passed to conform.format()
 			timeout_ms = 500,
 			lsp_fallback = true,
+			stop_after_first = true,
 		},
 	},
 	{
@@ -49,10 +51,10 @@ return {
 				},
 				event = { "BufReadPost", "BufNewFile" },
 				config = {
-					ensure_installed = servers,
+					ensure_installed = ensure_installed,
 				},
 			},
-			"hrsh7th/cmp-nvim-lsp"
+			"hrsh7th/cmp-nvim-lsp",
 		},
 		event = { "BufReadPost", "BufNewFile" },
 		cmd = { "LspInfo" },
@@ -64,15 +66,15 @@ return {
 				end
 				local map = vim.keymap.set
 
-				map("n", "gD", vim.lsp.buf.declaration, opts "Go to declaration")
-				map("n", "gd", vim.lsp.buf.definition, opts "Go to definition")
-				map("n", "<leader>li", vim.lsp.buf.signature_help, opts "Show function signature")
-				map({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, opts "Code action")
-				map({ "n", "v" }, "<leader>lr", vim.lsp.buf.rename, opts "Rename symbol")
+				map("n", "gD", vim.lsp.buf.declaration, opts("Go to declaration"))
+				map("n", "gd", vim.lsp.buf.definition, opts("Go to definition"))
+				map("n", "<leader>li", vim.lsp.buf.signature_help, opts("Show function signature"))
+				map({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, opts("Code action"))
+				map({ "n", "v" }, "<leader>lr", vim.lsp.buf.rename, opts("Rename symbol"))
+				map("n", "<leader>lf", vim.diagnostic.open_float, opts("Open floating diagnostic"))
 			end
 
-
-			lspconfig.lua_ls.setup {
+			lspconfig.lua_ls.setup({
 				on_attach = on_attach,
 				settings = {
 					Lua = {
@@ -88,17 +90,17 @@ return {
 							},
 						},
 						maxPreload = 100000,
-          				preloadFileSize = 10000,
+						preloadFileSize = 10000,
 					},
 				},
-			}
+			})
 
 			for _, lsp in ipairs(servers) do
-				lspconfig[lsp].setup {
+				lspconfig[lsp].setup({
 					on_attach = on_attach,
-				}
+				})
 			end
-		end
+		end,
 	},
 
 	{
